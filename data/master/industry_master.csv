@@ -1,0 +1,9 @@
+﻿industry_code,industry_name_japanese,industry_name_english,major_category,display_order
+T,調査産業計,All industries surveyed,,0
+0,鉱業，採石業，砂利採取業,Mining and quarrying of stone and gravel,第二次産業,1
+1,建設業,Construction,第二次産業,2
+3,製造業,Manufacturing,第二次産業,3
+4,電気・ガス・熱供給・水道業,"Electricity, gas, heat supply and water",第二次産業,4
+5,情報通信業,Information and communications,第三次産業,5
+7,運輸業，郵便業,Transport and postal activities,第三次産業,6
+9,卸売業，小売業,Wholesale and retail trade,第三次産業,7

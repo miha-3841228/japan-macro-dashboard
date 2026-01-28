@@ -1,0 +1,59 @@
+name: Update Labour Survey Data
+
+on:
+  schedule:
+    # Run on the 25th of each month at 9:00 AM JST (00:00 UTC)
+    - cron: '0 0 25 * *'
+
+  workflow_dispatch:  # Allow manual trigger from GitHub UI
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests pandas xlrd
+
+      - name: Download latest index data
+        run: |
+          python src/extract/download_latest_indices.py
+
+      - name: Download latest actual amount data
+        run: |
+          python src/extract/download_latest_actual_data.py
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code data/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.git-check.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/*.csv data/metadata.json
+          git commit -m "自動更新: 毎月勤労統計調査データ ($(date +'%Y-%m-%d'))"
+          git push
+
+      - name: Create issue on failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'データ自動更新が失敗しました',
+              body: `自動更新ワークフローが失敗しました。\n\n実行URL: ${context.payload.repository.html_url}/actions/runs/${context.runId}`
+            })

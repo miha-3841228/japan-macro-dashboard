@@ -32,7 +32,7 @@ Google Cloud を用いたサーバーレスELT構成とする。
 
 * **Extract (収集):**
     * **Runtime:** Cloud Run Jobs (Python 3.11+)
-    * **Logic:** e-Stat APIからJSONを取得し、DataFrame化してBigQueryへロード。
+    * **Logic:** e-Stat APIからデータを取得し、DataFrame化してBigQueryへロード。
     * **Infrastructure:** Terraform管理。Dockerコンテナ化。
 * **Load (蓄積):**
     * **DWH:** BigQuery (Region: asia-northeast1)

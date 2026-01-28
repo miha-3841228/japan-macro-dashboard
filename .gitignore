@@ -1,3 +1,13 @@
 .env
 .claude/
 __pycache__/
+
+# Data files (large CSV files)
+data/*.csv
+data/cleaned/*.csv
+data/*.json
+data/temp*/
+
+# Keep documentation and small master tables
+!data/master/*.csv
+!data/**/*.md

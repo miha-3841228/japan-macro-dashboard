@@ -1,0 +1,4 @@
+﻿gender_code,gender_name_japanese,gender_name_english,display_order
+T,男女計,Total (Male and Female),0
+M,男性,Male,1
+F,女性,Female,2

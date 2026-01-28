@@ -1,0 +1,4 @@
+﻿employment_type_code,employment_type_name_japanese,employment_type_name_english,display_order
+T,一般・パート計,Total (Regular and Part-time),0
+N,一般労働者,Regular workers,1
+P,パートタイム労働者,Part-time workers,2
